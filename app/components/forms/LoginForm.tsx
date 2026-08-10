@@ -1,6 +1,5 @@
 import { type FormEvent, useState } from "react";
 import { FiEye, FiEyeOff, FiLogIn } from "react-icons/fi";
-import { Link } from "react-router";
 
 import { useLogin } from "~/hooks/useAuth";
 
@@ -110,12 +109,14 @@ export function LoginForm() {
         </button>
 
         <div className="mt-4 text-center">
-          <Link
+          <a
             className="text-label-sm text-[#5e5e5e] underline-offset-4 transition-colors hover:text-[#1A1A1A] hover:underline"
-            to="/register"
+            href="https://wa.me/6285156692133?text=Halo%20Admin%2C%20saya%20ingin%20melakukan%20pendaftaran%20akun%20MATCH."
+            rel="noreferrer"
+            target="_blank"
           >
-            Buat Akun
-          </Link>
+            Hubungi Admin
+          </a>
         </div>
       </form>
     </main>

@@ -21,6 +21,8 @@ Buat `.env` lokal:
 
 ```env
 VITE_API_BASE_URL=http://localhost:8000/api/v1
+VITE_REGISTER_ADMIN_USERNAME=admin
+VITE_REGISTER_ADMIN_PASSWORD=admin123
 ```
 
 ## Build
