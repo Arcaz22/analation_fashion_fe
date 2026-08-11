@@ -36,7 +36,7 @@ function normalizeHex(value: string) {
   return trimmed.startsWith("#") ? trimmed : `#${trimmed}`;
 }
 
-export function SkinToneForm() {
+export function SkinToneForm({ onSaved }: { onSaved?: () => void }) {
   const metadata = useSkinToneMetadata();
   const analyzeSkinTone = useAnalyzeSkinTone();
   const saveSkinTone = useSaveSkinTone();
@@ -108,6 +108,7 @@ export function SkinToneForm() {
 
     await saveSkinTone.mutateAsync(result);
     setSaved(true);
+    onSaved?.();
   }
 
   const busy = analyzeSkinTone.isPending || saveSkinTone.isPending;

@@ -1,12 +1,25 @@
+import { useState } from "react";
+import { useNavigate } from "react-router";
+
 import { useLogout } from "~/hooks/useAuth";
+import { BodyShapeForm } from "~/components/forms/BodyShapeForm";
 import { SkinToneForm } from "~/components/forms/SkinToneForm";
 
 export default function OnboardingPage() {
   const logout = useLogout();
+  const navigate = useNavigate();
+  const [step, setStep] = useState<"skin-tone" | "body-shape">("skin-tone");
 
   return (
     <div className="min-h-screen bg-[#FAFAF8] text-[#1c1b1b]">
-      <SkinToneForm />
+      {step === "skin-tone" ? (
+        <SkinToneForm onSaved={() => setStep("body-shape")} />
+      ) : (
+        <BodyShapeForm
+          onBack={() => setStep("skin-tone")}
+          onComplete={() => navigate("/catalog")}
+        />
+      )}
       <button
         onClick={() => logout.mutate()}
         disabled={logout.isPending}
