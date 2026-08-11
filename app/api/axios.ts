@@ -80,7 +80,7 @@ axiosInstance.interceptors.response.use(
 
       try {
         // Hit refresh token endpoint
-        const { data } = await axiosInstance.post('auth/refresh-token')
+        const { data } = await axiosInstance.post('/auth/refresh-token')
         const newToken = data.data.access_token
 
         // Update store

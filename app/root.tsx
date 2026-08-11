@@ -10,6 +10,7 @@ import { useEffect } from "react";
 
 import { AppProviders } from "~/providers/AppProviders";
 import { authApi } from "~/api/auth";
+import { profileApi } from "~/api/profile";
 import { useAuthStore } from "~/stores/authStore";
 import type { Route } from "./+types/root";
 import "./app.css";
@@ -54,7 +55,7 @@ export function Layout({ children }: { children: React.ReactNode }) {
 }
 
 function SilentRefresh() {
-  const { setAuth, setInitialized } = useAuthStore();
+  const { clearAuth, setAccessToken, setAuth, setInitialized } = useAuthStore();
 
   useEffect(() => {
     async function init() {
@@ -69,12 +70,19 @@ function SilentRefresh() {
         const refreshResponse = await authApi.refreshToken();
         const newToken = refreshResponse.data.access_token;
 
+        setAccessToken(newToken);
         const meResponse = await authApi.me();
         const user = meResponse.data;
+        const profileResponse = await profileApi.me();
+        const profile = profileResponse.data;
+        const profileCompleted =
+          profile.profile_completed ||
+          Boolean(profile.skin_tone && profile.body_shape);
 
-        setAuth(user, newToken);
+        setAuth({ ...user, profile_completed: profileCompleted }, newToken);
         window.localStorage.setItem("wardrobe:has-session", "true");
       } catch {
+        clearAuth();
         window.localStorage.removeItem("wardrobe:has-session");
         // Empty by design: anonymous users should continue without auth state.
       } finally {
@@ -83,7 +91,7 @@ function SilentRefresh() {
     }
 
     init();
-  }, [setAuth, setInitialized]);
+  }, [clearAuth, setAccessToken, setAuth, setInitialized]);
 
   return null;
 }

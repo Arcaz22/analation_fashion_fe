@@ -34,12 +34,12 @@ export const authApi = {
   },
 
   logout: async (): Promise<LogoutResponse> => {
-    const { data } = await axiosInstance.post<LogoutResponse>('auth/logout')
+    const { data } = await axiosInstance.post<LogoutResponse>('/auth/logout')
     return data
   },
 
   me: async (): Promise<MeResponse> => {
-    const { data } = await axiosInstance.get<MeResponse>('auth/me')
+    const { data } = await axiosInstance.get<MeResponse>('/auth/me')
     return data
   },
 }

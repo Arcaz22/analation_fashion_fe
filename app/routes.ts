@@ -14,5 +14,6 @@ export default [
   layout("routes/app.tsx", [
     route("catalog", "routes/catalog.tsx"),
     route("onboarding", "routes/onboarding.tsx"),
+    route("profile", "routes/profile.tsx"),
   ]),
 ] satisfies RouteConfig;

@@ -11,6 +11,7 @@ interface AuthState {
 interface AuthActions {
   setAuth: (user: User, accessToken: string) => void
   setAccessToken: (accessToken: string) => void
+  setProfileCompleted: (profileCompleted: boolean) => void
   clearAuth: () => void
   setInitialized: () => void
 }
@@ -38,6 +39,16 @@ export const useAuthStore = create<AuthStore>((set) => ({
     set({
       accessToken,
     }),
+
+  setProfileCompleted: (profileCompleted) =>
+    set((state) => ({
+      user: state.user
+        ? {
+            ...state.user,
+            profile_completed: profileCompleted,
+          }
+        : state.user,
+    })),
 
   clearAuth: () =>
     set({

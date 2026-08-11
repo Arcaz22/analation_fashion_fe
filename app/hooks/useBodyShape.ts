@@ -1,5 +1,6 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { bodyShapeApi } from "~/api/bodyShape";
+import { useAuthStore } from "~/stores/authStore";
 import type {
   AnalyzeBodyShapePayload,
   SaveBodyShapePayload,
@@ -27,11 +28,14 @@ export function useAnalyzeBodyShape() {
 
 export function useSaveBodyShape() {
   const queryClient = useQueryClient();
+  const setProfileCompleted = useAuthStore((state) => state.setProfileCompleted);
 
   return useMutation({
     mutationFn: (payload: SaveBodyShapePayload) => bodyShapeApi.save(payload),
-    onSuccess: () => {
+    onSuccess: (response) => {
+      setProfileCompleted(response.data.profile_completed);
       queryClient.invalidateQueries({ queryKey: bodyShapeKeys.detail() });
+      queryClient.invalidateQueries({ queryKey: ["profile"] });
     },
   });
 }
