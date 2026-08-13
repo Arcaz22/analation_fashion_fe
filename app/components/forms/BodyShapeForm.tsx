@@ -43,6 +43,9 @@ const shapeProfiles: Record<
     BodyShapeAnalysis,
     | "description"
     | "recommended_styles"
+    | "shoulder_width"
+    | "waist_width"
+    | "hip_width"
     | "shoulder_to_hip_ratio"
     | "waist_to_shoulder_ratio"
     | "waist_to_hip_ratio"
@@ -53,6 +56,9 @@ const shapeProfiles: Record<
     description:
       "Bahu dan pinggul cenderung seimbang dengan pinggang yang lebih ramping dan terlihat jelas.",
     recommended_styles: ["Wrap dress", "Belted waist", "Fitted tops"],
+    shoulder_width: 0,
+    waist_width: 0,
+    hip_width: 0,
     shoulder_to_hip_ratio: 1,
     waist_to_shoulder_ratio: 0.75,
     waist_to_hip_ratio: 0.7,
@@ -67,6 +73,9 @@ const shapeProfiles: Record<
     description:
       "Pinggul lebih dominan daripada bahu, biasanya dengan pinggang yang tetap mudah terlihat.",
     recommended_styles: ["Statement tops", "A-line skirts", "Structured shoulders"],
+    shoulder_width: 0,
+    waist_width: 0,
+    hip_width: 0,
     shoulder_to_hip_ratio: 0.9,
     waist_to_shoulder_ratio: 0.75,
     waist_to_hip_ratio: 0.75,
@@ -81,6 +90,9 @@ const shapeProfiles: Record<
     description:
       "Proporsi paling menonjol ada di area perut atau torso, dengan kaki yang sering terlihat lebih ramping.",
     recommended_styles: ["V-neck tops", "Empire waist", "Straight-leg pants"],
+    shoulder_width: 0,
+    waist_width: 0,
+    hip_width: 0,
     shoulder_to_hip_ratio: 1,
     waist_to_shoulder_ratio: 0.9,
     waist_to_hip_ratio: 0.9,
@@ -95,6 +107,9 @@ const shapeProfiles: Record<
     description:
       "Lebar bahu, pinggang, dan pinggul relatif mirip sehingga tubuh terlihat lebih lurus.",
     recommended_styles: ["Peplum tops", "Layering", "High-waisted bottoms"],
+    shoulder_width: 0,
+    waist_width: 0,
+    hip_width: 0,
     shoulder_to_hip_ratio: 1,
     waist_to_shoulder_ratio: 0.85,
     waist_to_hip_ratio: 0.85,
@@ -109,6 +124,9 @@ const shapeProfiles: Record<
     description:
       "Bahu lebih dominan daripada pinggul, sehingga styling idealnya memberi volume visual ke tubuh bawah.",
     recommended_styles: ["Wide-leg pants", "A-line skirts", "Simple necklines"],
+    shoulder_width: 0,
+    waist_width: 0,
+    hip_width: 0,
     shoulder_to_hip_ratio: 1.15,
     waist_to_shoulder_ratio: 0.8,
     waist_to_hip_ratio: 0.9,
@@ -123,6 +141,9 @@ const shapeProfiles: Record<
     description:
       "Bahu sedikit lebih lebar daripada pinggul dengan proporsi torso yang seimbang.",
     recommended_styles: ["Slim fit", "Structured jackets", "Clean layering"],
+    shoulder_width: 0,
+    waist_width: 0,
+    hip_width: 0,
     shoulder_to_hip_ratio: 1.1,
     waist_to_shoulder_ratio: 0.78,
     waist_to_hip_ratio: 0.86,
@@ -137,6 +158,9 @@ const shapeProfiles: Record<
     description:
       "Bahu, pinggang, dan pinggul relatif sejajar sehingga siluet tubuh terlihat lurus.",
     recommended_styles: ["Layered tops", "Structured shoulders", "Tapered pants"],
+    shoulder_width: 0,
+    waist_width: 0,
+    hip_width: 0,
     shoulder_to_hip_ratio: 1,
     waist_to_shoulder_ratio: 0.9,
     waist_to_hip_ratio: 0.9,
@@ -151,6 +175,9 @@ const shapeProfiles: Record<
     description:
       "Tubuh atas sangat dominan dibanding pinggul, biasanya membentuk siluet V yang kuat.",
     recommended_styles: ["Straight pants", "Minimal tops", "Balanced layers"],
+    shoulder_width: 0,
+    waist_width: 0,
+    hip_width: 0,
     shoulder_to_hip_ratio: 1.2,
     waist_to_shoulder_ratio: 0.72,
     waist_to_hip_ratio: 0.86,
@@ -165,6 +192,9 @@ const shapeProfiles: Record<
     description:
       "Area pinggang atau pinggul lebih dominan daripada bahu, sehingga styling perlu membangun struktur tubuh atas.",
     recommended_styles: ["Structured jackets", "Dark tops", "Straight pants"],
+    shoulder_width: 0,
+    waist_width: 0,
+    hip_width: 0,
     shoulder_to_hip_ratio: 0.9,
     waist_to_shoulder_ratio: 1,
     waist_to_hip_ratio: 0.95,
@@ -179,6 +209,9 @@ const shapeProfiles: Record<
     description:
       "Torso tengah lebih dominan, dengan bahu dan kaki yang bisa terlihat lebih sempit.",
     recommended_styles: ["Vertical lines", "Open jackets", "Straight-leg pants"],
+    shoulder_width: 0,
+    waist_width: 0,
+    hip_width: 0,
     shoulder_to_hip_ratio: 1,
     waist_to_shoulder_ratio: 1.05,
     waist_to_hip_ratio: 1,
@@ -211,6 +244,9 @@ function buildManualAnalysis(
     shape_label: shapeLabel,
     description: profile.description,
     recommended_styles: profile.recommended_styles,
+    shoulder_width: profile.shoulder_width,
+    waist_width: profile.waist_width,
+    hip_width: profile.hip_width,
     shoulder_to_hip_ratio: profile.shoulder_to_hip_ratio,
     waist_to_shoulder_ratio: profile.waist_to_shoulder_ratio,
     waist_to_hip_ratio: profile.waist_to_hip_ratio,

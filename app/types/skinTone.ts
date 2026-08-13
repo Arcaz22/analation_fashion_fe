@@ -46,4 +46,4 @@ export type SaveSkinTonePayload = SkinToneAnalysis;
 export type SkinToneMetadataResponse = ApiResponse<SkinToneMetadata>;
 export type SkinToneAnalyzeResponse = ApiResponse<SkinToneAnalysis>;
 export type SkinToneSaveResponse = ApiResponse<{ profile_completed: boolean }>;
-export type SkinToneResponse = ApiResponse<SkinToneAnalysis>;
+export type SkinToneResponse = ApiResponse<SkinToneAnalysis | null>;

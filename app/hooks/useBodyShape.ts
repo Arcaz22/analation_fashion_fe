@@ -1,6 +1,8 @@
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { bodyShapeApi } from "~/api/bodyShape";
+import { getApiErrorMessage } from "~/lib/apiError";
 import { useAuthStore } from "~/stores/authStore";
+import { showToast } from "~/stores/toastStore";
 import type {
   AnalyzeBodyShapePayload,
   SaveBodyShapePayload,
@@ -23,6 +25,19 @@ export function useAnalyzeBodyShape() {
   return useMutation({
     mutationFn: (payload: AnalyzeBodyShapePayload) =>
       bodyShapeApi.analyze(payload),
+    onSuccess: () => {
+      showToast({
+        type: "success",
+        title: "Analisis body shape selesai",
+      });
+    },
+    onError: (error) => {
+      showToast({
+        type: "error",
+        title: "Analisis body shape gagal",
+        description: getApiErrorMessage(error),
+      });
+    },
   });
 }
 
@@ -36,6 +51,17 @@ export function useSaveBodyShape() {
       setProfileCompleted(response.data.profile_completed);
       queryClient.invalidateQueries({ queryKey: bodyShapeKeys.detail() });
       queryClient.invalidateQueries({ queryKey: ["profile"] });
+      showToast({
+        type: "success",
+        title: "Body shape tersimpan",
+      });
+    },
+    onError: (error) => {
+      showToast({
+        type: "error",
+        title: "Body shape gagal disimpan",
+        description: getApiErrorMessage(error),
+      });
     },
   });
 }

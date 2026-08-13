@@ -19,6 +19,18 @@ export type BodyShapeLabel = FemaleBodyShape | MaleBodyShape;
 export interface BodyShapeMetadata {
   genders: BodyShapeGender[];
   shapes: Record<BodyShapeGender, BodyShapeLabel[]>;
+  details?: Record<
+    BodyShapeGender,
+    Partial<
+      Record<
+        BodyShapeLabel,
+        {
+          description: string;
+          recommended_styles: string[];
+        }
+      >
+    >
+  >;
 }
 
 export interface BodyShapeAnalysis {
@@ -27,6 +39,9 @@ export interface BodyShapeAnalysis {
   shape_label: BodyShapeLabel;
   description: string;
   recommended_styles: string[];
+  shoulder_width: number;
+  waist_width: number;
+  hip_width: number;
   shoulder_to_hip_ratio: number;
   waist_to_shoulder_ratio: number;
   waist_to_hip_ratio: number;
@@ -56,4 +71,4 @@ export type SaveBodyShapePayload = BodyShapeAnalysis;
 export type BodyShapeMetadataResponse = ApiResponse<BodyShapeMetadata>;
 export type BodyShapeAnalyzeResponse = ApiResponse<BodyShapeAnalysis>;
 export type BodyShapeSaveResponse = ApiResponse<{ profile_completed: boolean }>;
-export type BodyShapeResponse = ApiResponse<BodyShapeAnalysis>;
+export type BodyShapeResponse = ApiResponse<BodyShapeAnalysis | null>;

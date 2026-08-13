@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiShoppingBag, FiUser } from "react-icons/fi";
 import { Link, NavLink } from "react-router";
 
 import { useLogout } from "~/hooks/useAuth";
@@ -15,26 +16,25 @@ export function AppShell({ children }: { children: React.ReactNode }) {
             className="text-sm font-semibold uppercase tracking-[0.2em] text-[#1c1b1b]"
             to="/catalog"
           >
-            WARDROBE
+            MATCH
           </Link>
 
           <nav className="hidden items-center gap-8 md:flex">
             <ShellNavLink to="/catalog">Koleksi</ShellNavLink>
             <ShellNavLink to="/recommendations">Rekomendasi</ShellNavLink>
-            <ShellNavLink to="/archive">Arsip</ShellNavLink>
           </nav>
 
           <div className="flex items-center gap-5">
-            <button
+            {/* <button
               className="relative hidden text-[#747878] transition-colors hover:text-[#1c1b1b] md:block"
               type="button"
               aria-label="Koleksi pilihan"
             >
-              <span className="text-xl">Bag</span>
+              <FiShoppingBag className="size-5" aria-hidden="true" />
               <span className="absolute -right-2 -top-2 grid size-4 place-items-center rounded-full bg-[#1c1b1b] text-[9px] font-bold text-white">
                 2
               </span>
-            </button>
+            </button> */}
             <div className="relative">
               <button
                 className="grid size-10 place-items-center border border-[#E8E8E4] bg-white text-[#747878] transition-colors hover:border-[#1c1b1b] hover:text-[#1c1b1b]"
@@ -43,9 +43,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 aria-expanded={profileMenuOpen}
                 onClick={() => setProfileMenuOpen((open) => !open)}
               >
-                <span aria-hidden="true" className="text-xl leading-none">
-                  ○
-                </span>
+                <FiUser className="size-5" aria-hidden="true" />
               </button>
 
               {profileMenuOpen ? (
@@ -71,15 +69,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
 
-        <nav className="grid grid-cols-3 border-t border-[#E8E8E4] md:hidden">
+        <nav className="grid grid-cols-2 border-t border-[#E8E8E4] md:hidden">
           <ShellNavLink mobile to="/catalog">
             Koleksi
           </ShellNavLink>
           <ShellNavLink mobile to="/recommendations">
             Rekomendasi
-          </ShellNavLink>
-          <ShellNavLink mobile to="/archive">
-            Arsip
           </ShellNavLink>
         </nav>
       </header>
@@ -106,7 +101,7 @@ function ShellNavLink({
             ? "py-3 text-center text-[11px]"
             : "border-b-2 py-1 text-[11px]"
         } font-semibold uppercase tracking-[0.14em] transition-colors ${
-          isActive && to === "/catalog"
+          isActive
             ? "border-[#1c1b1b] text-[#1c1b1b]"
             : "border-transparent text-[#747878] hover:text-[#1c1b1b]"
         }`

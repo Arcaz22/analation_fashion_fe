@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { FiLogOut } from "react-icons/fi";
 import { useNavigate } from "react-router";
 
 import { useLogout } from "~/hooks/useAuth";
@@ -23,8 +24,9 @@ export default function OnboardingPage() {
       <button
         onClick={() => logout.mutate()}
         disabled={logout.isPending}
-        className="fixed right-4 top-4 z-20 bg-white/80 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#747878] shadow-sm backdrop-blur transition-colors hover:text-[#1c1b1b] disabled:opacity-50"
+        className="fixed right-4 top-4 z-20 inline-flex items-center gap-2 bg-white/80 px-3 py-2 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#747878] shadow-sm backdrop-blur transition-colors hover:text-[#1c1b1b] disabled:opacity-50"
       >
+        {!logout.isPending ? <FiLogOut className="size-4" aria-hidden="true" /> : null}
         {logout.isPending ? "Keluar..." : "Logout"}
       </button>
     </div>

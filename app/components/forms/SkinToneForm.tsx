@@ -155,13 +155,13 @@ export function SkinToneForm({ onSaved }: { onSaved?: () => void }) {
             Tentukan warna kulit Anda.
           </h2>
           <p className="max-w-md text-base leading-relaxed text-[#747878]">
-            Data ini membantu WARDROBE memilih palet warna outfit yang lebih akurat untuk profil Anda.
+            Data ini membantu MATCH memilih palet warna outfit yang lebih akurat untuk profil Anda.
           </p>
         </section>
 
         <div className="mb-8 grid grid-cols-2 bg-[#F1EDEC] p-1">
           <button
-            className={`h-12 text-sm font-semibold uppercase tracking-[0.1em] transition-colors ${
+            className={`h-12 text-sm font-semibold uppercase tracking-widest transition-colors ${
               mode === "manual"
                 ? "bg-white text-[#1c1b1b] shadow-sm"
                 : "text-[#747878] hover:bg-white/60"
@@ -172,7 +172,7 @@ export function SkinToneForm({ onSaved }: { onSaved?: () => void }) {
             Manual
           </button>
           <button
-            className={`h-12 text-sm font-semibold uppercase tracking-[0.1em] transition-colors ${
+            className={`h-12 text-sm font-semibold uppercase tracking-widest transition-colors ${
               mode === "camera"
                 ? "bg-white text-[#1c1b1b] shadow-sm"
                 : "text-[#747878] hover:bg-white/60"
@@ -207,7 +207,7 @@ export function SkinToneForm({ onSaved }: { onSaved?: () => void }) {
 
               <div className="min-w-0 flex-1">
                 <label
-                  className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.1em] text-[#747878]"
+                  className="mb-2 block text-[11px] font-semibold uppercase tracking-widest text-[#747878]"
                   htmlFor="skin-hex"
                 >
                   Kode warna
@@ -270,7 +270,7 @@ export function SkinToneForm({ onSaved }: { onSaved?: () => void }) {
             />
 
             <button
-              className="h-12 w-full border border-[#1c1b1b] bg-white text-sm font-semibold uppercase tracking-[0.1em] text-[#1c1b1b] transition-colors hover:bg-[#1c1b1b] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
+              className="h-12 w-full border border-[#1c1b1b] bg-white text-sm font-semibold uppercase tracking-widest text-[#1c1b1b] transition-colors hover:bg-[#1c1b1b] hover:text-white disabled:cursor-not-allowed disabled:opacity-50"
               disabled={busy}
               type="button"
               onClick={() => void analyzeManual()}
@@ -328,11 +328,11 @@ export function SkinToneForm({ onSaved }: { onSaved?: () => void }) {
       <footer className="fixed inset-x-0 bottom-0 z-10 border-t border-[#E8E8E4] bg-white">
         <div
           className={`mx-auto px-6 py-5 ${
-            mode === "camera" ? "max-w-[432px]" : "max-w-2xl"
+            mode === "camera" ? "max-w-108" : "max-w-2xl"
           }`}
         >
           <button
-            className="h-12 w-full bg-[#1c1b1b] text-sm font-semibold uppercase tracking-[0.1em] text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+            className="h-12 w-full bg-[#1c1b1b] text-sm font-semibold uppercase tracking-widest text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
             disabled={busy}
             type="submit"
           >
@@ -357,7 +357,7 @@ function SelectField({
 }) {
   return (
     <label className="block">
-      <span className="mb-2 block text-[11px] font-semibold uppercase tracking-[0.1em] text-[#747878]">
+      <span className="mb-2 block text-[11px] font-semibold uppercase tracking-widest text-[#747878]">
         {label}
       </span>
       <select

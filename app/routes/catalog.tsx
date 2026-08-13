@@ -1,77 +1,10 @@
-import { useMemo, useState } from "react";
+import { Link } from "react-router";
+import { useState } from "react";
 
 import { AppShell } from "~/components/layouts/AppShell";
 import { ItemGrid } from "~/components/shared/ItemGrid";
-import type { CatalogItem } from "~/components/shared/ItemCard";
-
-const catalogItems: CatalogItem[] = [
-  {
-    id: "item_001",
-    category: "top",
-    color: "White",
-    colorHex: "#FFFFFF",
-    description: "Classic Oxford Shirt",
-    formality: "smart-casual",
-    imageUrl:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuA0v2R8DEleTFYeCjRuWczYeGbvmvK2xJUgXkNaxhEeclldUIzs-h5qi8yDkZnIOUfFb1Dt4PNUvaA6jmwoQHHd6L3Tpsk7borXM0vVjV4roRi_hvMTKt5RpTDEvDc2g-0WhpqAuCkeKPhK7MB788kknAnrHXQ-GhkUNwQxMczP2adgKNWyAYGAaq2WgWWjtTkOVo9vQrO0zMOBeCIEkbai34r5dNBqwfrbZVE1Ud10z8NpoQngNHcdJw",
-    status: "active",
-  },
-  {
-    id: "item_002",
-    category: "bottom",
-    color: "Navy",
-    colorHex: "#1c1c2b",
-    description: "Tailored Wool Trouser",
-    formality: "formal",
-    imageUrl:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuDzUzCP6Tabp4HnJIIURfSXgqCAy890nub73EzsLfxGFHusBYR3_YbOelzh15A7DVK4u5Up-zLKisbk7Hy4K3id10aFtOp3HA0MEsiVIEWivBe-FQOcMd8KFEjUZbkrzzzNuHIKWmPVU1W2I3855TMzQfoKjUuVInMU3ioOX9raVt0vI7cSlXh8pFmCkIaGeFVUnYQHp4hHsgqbeaf2MULUd-je0yWNxWnCNq-ZGA8iwVQkl2sObHqHBg",
-    status: "active",
-  },
-  {
-    id: "item_003",
-    category: "top",
-    color: "Beige",
-    colorHex: "#d2b48c",
-    description: "Cashmere Crewneck",
-    formality: "casual",
-    imageUrl:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuAroIvnVjzPNFRquK1FmBvM9VcUwGlaNIZPqFNupwSNvPiwCM28V8szxaQd1R7owTWt6DUZ-hWryxpbIX0ZLWNOpQhD1W_oowIm-mG7oRvavvCvazw2i5mEKCkgjKViwzy-mRLkjds8bVzaSIIo-oMoQEFTwBhHCGEqWxAWOHdeNPzskGmRTISWTnj40wbV8HP7uXsbJMLY7FaJZC2QOB99gxR1zeTRV9hxiqGMJF7BnlUcZcvXcnv3KQ",
-    status: "laundry",
-  },
-  {
-    id: "item_004",
-    category: "outer",
-    color: "Charcoal",
-    colorHex: "#343434",
-    description: "Relaxed Linen Blazer",
-    formality: "smart-casual",
-    imageUrl:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCiycdZJmbJQirmPTCVfpGIf__BSYFAE2N2bcKD0sUU-cwFk4u3aahLa2An0Oe9tnpj-jz1Dupe0SUeHPJSoA-PoH6lZ08-P4QlQvmK-Kz1q4RL-Kiw73pMiUbd3KkourwXffzrd-bitlyylQn-P5brTje23dPvk3O4n77-PArptY-UDb6gGEYISekNnNpfD-is4URnAs9-5M5_xiHzrB1Scqee0TtC2J9h2DcHHE-5k1Rk6lWUjGisFg",
-    status: "active",
-  },
-  {
-    id: "item_005",
-    category: "footwear",
-    color: "Black",
-    colorHex: "#111111",
-    description: "Leather Loafers",
-    formality: "formal",
-    imageUrl:
-      "https://lh3.googleusercontent.com/aida-public/AB6AXuCK8XZgKjvxyQZb_Kbv-cl0pBVQGZHc_N_v3OBf5JEhpEqyP2YFs4q3Xw-mrfeFF95t1St8L5E9hotX9_7SpRnK2cLHkaYFDRoJ3mO4tlR9DjE7TbKbeqKssqTK7Tu1T2ZCX39bG1LXFzWWEa9vAK4V6voD6GbnFWlHRy3atBWLnwSx7qF8RygFiIwR5seZTx-TQsTHj3ycBfop_Z9quYjLDNXfOBmHA-iTVJraidyi7MgXOIss1LPNVg",
-    status: "active",
-  },
-  {
-    id: "item_006",
-    category: "accessory",
-    color: "Brown",
-    colorHex: "#6f4e37",
-    description: "Textured Leather Belt",
-    formality: "smart-casual",
-    imageUrl:
-      "https://images.unsplash.com/photo-1624222247344-550fb60583dc?auto=format&fit=crop&w=900&q=80",
-    status: "archived",
-  },
-];
+import { useWardrobeItems } from "~/hooks/useWardrobe";
+import type { WardrobeCategory } from "~/types/wardrobe";
 
 const categories = [
   { label: "Semua", value: "all" },
@@ -86,11 +19,10 @@ type CategoryFilter = (typeof categories)[number]["value"];
 
 export default function CatalogPage() {
   const [category, setCategory] = useState<CategoryFilter>("all");
-
-  const filteredItems = useMemo(() => {
-    if (category === "all") return catalogItems;
-    return catalogItems.filter((item) => item.category === category);
-  }, [category]);
+  const selectedCategory =
+    category === "all" ? undefined : (category as WardrobeCategory);
+  const itemsQuery = useWardrobeItems(selectedCategory);
+  const items = itemsQuery.data?.data ?? [];
 
   return (
     <AppShell>
@@ -104,12 +36,12 @@ export default function CatalogPage() {
               Kelola dan atur lemari pakaian digital Anda.
             </p>
           </div>
-          <button
-            className="h-12 bg-[#1c1b1b] px-5 text-sm font-semibold uppercase tracking-[0.1em] text-white transition-opacity hover:opacity-90"
-            type="button"
+          <Link
+            className="inline-flex h-12 items-center justify-center bg-[#1c1b1b] px-5 text-sm font-semibold uppercase tracking-widest text-white transition-opacity hover:opacity-90"
+            to="/catalog/new"
           >
             Tambah Item Baru
-          </button>
+          </Link>
         </div>
 
         <div className="mb-6 border border-[#E2DDD3] bg-[#F4F1EA] p-4">
@@ -135,7 +67,38 @@ export default function CatalogPage() {
           ))}
         </div>
 
-        <ItemGrid items={filteredItems} />
+        {itemsQuery.isLoading ? (
+          <div className="grid min-h-72 place-items-center border border-[#E8E8E4] bg-white">
+            <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#747878]">
+              Memuat koleksi...
+            </p>
+          </div>
+        ) : itemsQuery.isError ? (
+          <div className="border border-[#f0c8c8] bg-[#fff7f7] p-5">
+            <p className="text-sm font-semibold text-[#ba1a1a]">
+              Koleksi tidak bisa dimuat.
+            </p>
+            <p className="mt-1 text-sm text-[#747878]">
+              Periksa koneksi API lalu coba lagi.
+            </p>
+          </div>
+        ) : items.length > 0 ? (
+          <ItemGrid items={items} />
+        ) : (
+          <div className="grid min-h-72 place-items-center border border-[#E8E8E4] bg-white p-8 text-center">
+            <div>
+              <p className="text-sm font-semibold text-[#1c1b1b]">
+                Belum ada item di kategori ini.
+              </p>
+              <Link
+                className="mt-4 inline-flex h-11 items-center justify-center bg-[#1c1b1b] px-5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white transition-opacity hover:opacity-90"
+                to="/catalog/new"
+              >
+                Tambah Item
+              </Link>
+            </div>
+          </div>
+        )}
       </main>
     </AppShell>
   );

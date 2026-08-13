@@ -19,5 +19,16 @@ export interface UserProfileStats {
   active_days: number;
 }
 
+export interface UpdateUserProfilePayload {
+  name: string;
+}
+
+export interface UpdateUserProfileData {
+  id: number | string;
+  name: string;
+  email: string;
+}
+
 export type UserProfileResponse = ApiResponse<UserProfile>;
 export type UserProfileStatsResponse = ApiResponse<UserProfileStats>;
+export type UpdateUserProfileResponse = ApiResponse<UpdateUserProfileData>;

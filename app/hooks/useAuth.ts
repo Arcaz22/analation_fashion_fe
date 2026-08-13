@@ -3,7 +3,9 @@ import { useNavigate } from 'react-router'
 import { authApi } from '~/api/auth'
 import { profileApi } from '~/api/profile'
 import { profileKeys } from '~/hooks/useProfile'
+import { getApiErrorMessage } from '~/lib/apiError'
 import { useAuthStore } from '~/stores/authStore'
+import { showToast } from '~/stores/toastStore'
 import type { LoginPayload, RegisterPayload } from '~/types/auth'
 
 export const authKeys = {
@@ -37,7 +39,22 @@ export function useLogin() {
       queryClient.setQueryData(authKeys.me(), syncedUser)
       queryClient.setQueryData(profileKeys.me(), profileResponse)
 
+      showToast({
+        type: 'success',
+        title: 'Login berhasil',
+        description: 'Selamat datang kembali.',
+      })
       navigate(profileCompleted ? '/catalog' : '/onboarding')
+    },
+    onError: (error) => {
+      showToast({
+        type: 'error',
+        title: 'Login gagal',
+        description: getApiErrorMessage(
+          error,
+          'Periksa email dan password Anda.'
+        ),
+      })
     },
   })
 }
@@ -60,7 +77,19 @@ export function useRegister() {
       queryClient.setQueryData(authKeys.me(), user)
 
       // User baru selalu belum complete profile
+      showToast({
+        type: 'success',
+        title: 'Registrasi berhasil',
+        description: 'Lengkapi profil untuk mulai memakai rekomendasi.',
+      })
       navigate('/onboarding')
+    },
+    onError: (error) => {
+      showToast({
+        type: 'error',
+        title: 'Registrasi gagal',
+        description: getApiErrorMessage(error, 'Periksa data Anda dan coba lagi.'),
+      })
     },
   })
 }
@@ -85,6 +114,10 @@ export function useLogout() {
       queryClient.clear()
 
       navigate('/login')
+      showToast({
+        type: 'success',
+        title: 'Logout berhasil',
+      })
     },
     onError: () => {
       // Tetap clear auth walau request gagal
@@ -94,6 +127,11 @@ export function useLogout() {
       queryClient.clear()
 
       navigate('/login')
+      showToast({
+        type: 'info',
+        title: 'Sesi diakhiri',
+        description: 'Anda sudah keluar dari aplikasi.',
+      })
     },
   })
 }

@@ -16,7 +16,7 @@ import type { Route } from "./+types/root";
 import "./app.css";
 
 export const meta: Route.MetaFunction = () => [
-  { title: "WARDROBE" },
+  { title: "MATCH" },
   {
     name: "description",
     content: "Kelola koleksi dan rekomendasi gaya pribadi",
@@ -100,7 +100,7 @@ function InitializingScreen() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-background">
       <p className="text-sm text-gray-500 uppercase tracking-widest animate-pulse">
-        WARDROBE
+        MATCH
       </p>
     </div>
   );

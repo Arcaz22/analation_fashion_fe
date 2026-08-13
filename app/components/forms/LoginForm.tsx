@@ -1,4 +1,5 @@
 import { type FormEvent, useState } from "react";
+import { FiEye, FiEyeOff, FiLogIn } from "react-icons/fi";
 import { Link } from "react-router";
 
 import { useLogin } from "~/hooks/useAuth";
@@ -20,9 +21,9 @@ export function LoginForm() {
   }
 
   return (
-    <main className="w-full max-w-[420px] border border-[#E8E8E4] bg-white p-8 md:p-12">
+    <main className="w-full max-w-105 border border-[#E8E8E4] bg-white p-8 md:p-12">
       <header className="mb-12 text-center">
-        <h1 className="text-brand-logo text-primary">WARDROBE</h1>
+        <h1 className="text-brand-logo text-primary">MATCH</h1>
       </header>
 
       <section className="mb-10 text-center">
@@ -37,7 +38,7 @@ export function LoginForm() {
       <form className="flex flex-col gap-6" onSubmit={handleSubmit}>
         <div className="flex flex-col gap-2">
           <label
-            className="text-label-sm uppercase tracking-[0.1em] text-[#5e5e5e]"
+            className="text-label-sm uppercase tracking-widest text-[#5e5e5e]"
             htmlFor="email"
           >
             Email
@@ -57,7 +58,7 @@ export function LoginForm() {
 
         <div className="flex flex-col gap-2">
           <label
-            className="text-label-sm uppercase tracking-[0.1em] text-[#5e5e5e]"
+            className="text-label-sm uppercase tracking-widest text-[#5e5e5e]"
             htmlFor="password"
           >
             Password
@@ -83,33 +84,9 @@ export function LoginForm() {
               onClick={() => setShowPassword((value) => !value)}
             >
               {showPassword ? (
-                <svg
-                  aria-hidden="true"
-                  className="size-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24" />
-                  <line x1="1" x2="23" y1="1" y2="23" />
-                </svg>
+                <FiEyeOff className="size-5" aria-hidden="true" />
               ) : (
-                <svg
-                  aria-hidden="true"
-                  className="size-5"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  strokeWidth="1.5"
-                  viewBox="0 0 24 24"
-                >
-                  <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-                  <circle cx="12" cy="12" r="3" />
-                </svg>
+                <FiEye className="size-5" aria-hidden="true" />
               )}
             </button>
           </div>
@@ -122,10 +99,13 @@ export function LoginForm() {
         ) : null}
 
         <button
-          className="mt-4 flex h-12 w-full items-center justify-center bg-[#1A1A1A] text-label-sm uppercase tracking-[0.1em] text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
+          className="mt-4 flex h-12 w-full items-center justify-center bg-[#1A1A1A] text-label-sm uppercase tracking-widest text-white transition-opacity hover:opacity-90 disabled:cursor-not-allowed disabled:opacity-50"
           disabled={login.isPending}
           type="submit"
         >
+          {!login.isPending ? (
+            <FiLogIn className="mr-2 size-4" aria-hidden="true" />
+          ) : null}
           {login.isPending ? "Memproses..." : "Masuk"}
         </button>
 

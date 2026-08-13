@@ -1,3 +1,4 @@
+import { FiEdit2 } from "react-icons/fi";
 import { Link } from "react-router";
 
 import type { UserProfile } from "~/types/profile";
@@ -41,6 +42,7 @@ export function ProfileCard({
       <div className="grid gap-4 md:grid-cols-2">
         <ProfileMetric
           label="Warna kulit"
+          editTo={compact ? undefined : "/profile/skin-tone"}
           value={
             skinTone
               ? `${skinTone.tone_label} / ${skinTone.undertone}`
@@ -49,6 +51,7 @@ export function ProfileCard({
         />
         <ProfileMetric
           label="Bentuk tubuh"
+          editTo={compact ? undefined : "/profile/body-shape"}
           value={bodyShape?.shape_label ?? "Belum diisi"}
         />
       </div>
@@ -105,12 +108,31 @@ export function ProfileCard({
   );
 }
 
-function ProfileMetric({ label, value }: { label: string; value: string }) {
+function ProfileMetric({
+  editTo,
+  label,
+  value,
+}: {
+  editTo?: string;
+  label: string;
+  value: string;
+}) {
   return (
     <div className="bg-[#FAFAF8] p-4">
-      <p className="mb-1 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#747878]">
-        {label}
-      </p>
+      <div className="mb-2 flex items-center justify-between gap-3">
+        <p className="text-[11px] font-semibold uppercase tracking-[0.12em] text-[#747878]">
+          {label}
+        </p>
+        {editTo ? (
+          <Link
+            aria-label={`Edit ${label}`}
+            className="inline-flex size-7 items-center justify-center border border-[#E8E8E4] bg-white text-[#747878] transition-colors hover:border-[#1c1b1b] hover:text-[#1c1b1b]"
+            to={editTo}
+          >
+            <FiEdit2 className="size-3.5" aria-hidden="true" />
+          </Link>
+        ) : null}
+      </div>
       <p className="text-sm font-semibold text-[#1c1b1b]">{value}</p>
     </div>
   );

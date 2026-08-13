@@ -1,6 +1,6 @@
-# WARDROBE Frontend
+# MATCH Frontend
 
-React Router SPA untuk auth, onboarding, catalog, dan rekomendasi wardrobe.
+React Router SPA untuk auth, onboarding, catalog, dan rekomendasi match.
 
 ## Development
 
@@ -45,6 +45,6 @@ ssr: false
 ## Docker
 
 ```bash
-docker build -t wardrobe-fe .
-docker run -p 4173:4173 wardrobe-fe
+docker build -t match-fe .
+docker run -p 4173:4173 match-fe
 ```
