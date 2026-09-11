@@ -20,7 +20,7 @@ http://localhost:5173
 Buat `.env` lokal:
 
 ```env
-API_BASE_URL=http://localhost:8000/api/v1
+VITE_API_BASE_URL=http://localhost:8000/api/v1
 REGISTER_ADMIN_USERNAME=admin
 REGISTER_ADMIN_PASSWORD=admin123
 ```
@@ -28,7 +28,7 @@ REGISTER_ADMIN_PASSWORD=admin123
 Untuk production Vercel:
 
 ```env
-API_BASE_URL=https://fashion.rampung.space/api/v1
+VITE_API_BASE_URL=https://fashion.rampung.space/api/v1
 ```
 
 ## Build
