@@ -25,6 +25,12 @@ VITE_REGISTER_ADMIN_USERNAME=admin
 VITE_REGISTER_ADMIN_PASSWORD=admin123
 ```
 
+Untuk production Vercel:
+
+```env
+VITE_API_BASE_URL=https://fashion.rampung.space/api/v1
+```
+
 ## Build
 
 ```bash
