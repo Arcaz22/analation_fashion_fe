@@ -28,8 +28,10 @@ REGISTER_ADMIN_PASSWORD=admin123
 Untuk production Vercel:
 
 ```env
-VITE_API_BASE_URL=https://fashion.rampung.space/api/v1
+VITE_API_BASE_URL=/api/v1
 ```
+
+Vercel akan me-rewrite request `/api/v1/*` ke backend production.
 
 ## Build
 
