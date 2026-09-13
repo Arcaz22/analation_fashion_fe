@@ -1,7 +1,7 @@
 import axios, { type AxiosRequestConfig } from 'axios'
 import { useAuthStore } from '~/stores/authStore'
 
-const BASE_URL = (import.meta.env.VITE_API_BASE_URL ?? '/api/v1').replace(
+const BASE_URL = (import.meta.env.API_BASE_URL ?? '/api/v1').replace(
   /\/+$/,
   ''
 )
