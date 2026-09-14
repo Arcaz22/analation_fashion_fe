@@ -72,8 +72,9 @@ export function CameraCapture({
       const stream = await navigator.mediaDevices.getUserMedia({
         video: {
           facingMode: "user",
-          width: { ideal: 960 },
-          height: { ideal: 1280 },
+          width: { ideal: 1280 },
+          height: { ideal: 960 },
+          aspectRatio: { ideal: 4 / 3 },
         },
         audio: false,
       });
@@ -139,12 +140,12 @@ export function CameraCapture({
 
   return (
     <section className={`mx-auto w-full max-w-sm space-y-5 ${className}`}>
-      <div className="relative grid aspect-[3/4] w-full place-items-center overflow-hidden bg-[#202020] text-white">
+      <div className="relative grid aspect-[4/5] w-full place-items-center overflow-hidden bg-[#202020] text-white sm:aspect-[3/4]">
         <div className="absolute inset-0 grid place-items-center">
           {previewImage ? (
             <img
               alt="Preview kamera"
-              className="h-full w-full object-cover"
+              className="h-full w-full object-contain"
               src={previewImage}
             />
           ) : (
@@ -153,7 +154,7 @@ export function CameraCapture({
                 ref={videoRef}
                 aria-label="Preview kamera"
                 autoPlay
-                className={`h-full w-full object-cover ${
+                className={`h-full w-full object-contain ${
                   cameraActive ? "opacity-100" : "opacity-0"
                 } ${unmirrorFrontCamera ? "[transform:scaleX(-1)]" : "[transform:scaleX(1)]"}`}
                 muted
@@ -177,7 +178,7 @@ export function CameraCapture({
           )}
         </div>
 
-        <div className="pointer-events-none absolute inset-8 grid place-items-center">
+        <div className="pointer-events-none absolute inset-5 grid place-items-center sm:inset-8">
           <div className="relative h-full w-full border border-white/65">
             <div className="absolute left-0 top-1/2 h-px w-full bg-white/80 shadow-[0_0_18px_rgba(255,255,255,0.8)]" />
             <div className="absolute -top-3 left-1/2 -translate-x-1/2 bg-black/75 px-3 py-1 text-[10px] font-semibold uppercase tracking-[0.12em] text-white">
