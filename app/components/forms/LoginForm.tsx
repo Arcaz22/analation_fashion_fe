@@ -22,7 +22,9 @@ export function LoginForm() {
   return (
     <main className="w-full max-w-105 border border-[#E8E8E4] bg-white p-8 md:p-12">
       <header className="mb-12 text-center">
-        <h1 className="text-brand-logo text-primary">MATCH</h1>
+        <h1 className="display-font text-3xl font-semibold tracking-[0.16em] text-primary">
+          MATCH
+        </h1>
       </header>
 
       <section className="mb-10 text-center">
@@ -92,7 +94,7 @@ export function LoginForm() {
         </div>
 
         {login.error ? (
-          <p className="text-sm text-[#ba1a1a]">
+          <p className="text-sm text-[#ba1a1a]" role="alert">
             {getErrorMessage(login.error)}
           </p>
         ) : null}
@@ -111,7 +113,7 @@ export function LoginForm() {
         <div className="mt-4 text-center">
           <a
             className="text-label-sm text-[#5e5e5e] underline-offset-4 transition-colors hover:text-[#1A1A1A] hover:underline"
-            href="https://wa.me/6285156692133?text=Halo%20Admin%2C%20saya%20ingin%20melakukan%20pendaftaran%20akun%20MATCH."
+            href="https://wa.me/6285156692133?text=Halo%20Admin%2C%20saya%20ingin%20melakukan%20pendaftaran%20akun%20MATCH"
             rel="noreferrer"
             target="_blank"
           >

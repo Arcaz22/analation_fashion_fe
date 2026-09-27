@@ -30,6 +30,8 @@ export function ItemCard({ item }: { item: WardrobeItem }) {
             className={`h-full w-full object-cover transition duration-500 group-hover:scale-105 ${
               muted ? "opacity-55 group-hover:opacity-75" : ""
             }`}
+            decoding="async"
+            loading="lazy"
             src={imageUrl}
           />
           <div className="absolute right-3 top-3 border border-[#E8E8E4] bg-white/95 px-2.5 py-1 text-[10px] font-semibold uppercase tracking-widest text-[#1c1b1b] shadow-sm backdrop-blur">

@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { FiShoppingBag, FiUser } from "react-icons/fi";
+import { useEffect, useRef, useState } from "react";
+import { FiUser } from "react-icons/fi";
 import { Link, NavLink } from "react-router";
 
 import { useLogout } from "~/hooks/useAuth";
@@ -7,6 +7,27 @@ import { useLogout } from "~/hooks/useAuth";
 export function AppShell({ children }: { children: React.ReactNode }) {
   const logout = useLogout();
   const [profileMenuOpen, setProfileMenuOpen] = useState(false);
+  const profileMenuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handlePointerDown(event: PointerEvent) {
+      if (!profileMenuRef.current?.contains(event.target as Node)) {
+        setProfileMenuOpen(false);
+      }
+    }
+
+    function handleKeyDown(event: KeyboardEvent) {
+      if (event.key === "Escape") setProfileMenuOpen(false);
+    }
+
+    document.addEventListener("pointerdown", handlePointerDown);
+    document.addEventListener("keydown", handleKeyDown);
+
+    return () => {
+      document.removeEventListener("pointerdown", handlePointerDown);
+      document.removeEventListener("keydown", handleKeyDown);
+    };
+  }, []);
 
   return (
     <div className="min-h-screen bg-[#FAFAF8] text-[#1c1b1b]">
@@ -35,11 +56,12 @@ export function AppShell({ children }: { children: React.ReactNode }) {
                 2
               </span>
             </button> */}
-            <div className="relative">
+            <div ref={profileMenuRef} className="relative">
               <button
                 className="grid size-10 place-items-center border border-[#E8E8E4] bg-white text-[#747878] transition-colors hover:border-[#1c1b1b] hover:text-[#1c1b1b]"
                 type="button"
                 aria-label="Buka menu profile"
+                aria-controls="profile-menu"
                 aria-expanded={profileMenuOpen}
                 onClick={() => setProfileMenuOpen((open) => !open)}
               >
@@ -47,7 +69,10 @@ export function AppShell({ children }: { children: React.ReactNode }) {
               </button>
 
               {profileMenuOpen ? (
-                <div className="absolute right-0 top-12 w-44 border border-[#E8E8E4] bg-white p-1 shadow-lg">
+                <div
+                  id="profile-menu"
+                  className="absolute right-0 top-12 w-44 border border-[#E8E8E4] bg-white p-1 shadow-lg"
+                >
                   <Link
                     className="block px-4 py-3 text-[11px] font-semibold uppercase tracking-[0.12em] text-[#747878] transition-colors hover:bg-[#FAFAF8] hover:text-[#1c1b1b]"
                     to="/profile"
@@ -69,17 +94,20 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           </div>
         </div>
 
-        <nav className="grid grid-cols-2 border-t border-[#E8E8E4] md:hidden">
+        <nav className="fixed inset-x-0 bottom-0 z-40 grid grid-cols-3 border-t border-[#E8E8E4] bg-white/95 pb-[env(safe-area-inset-bottom)] shadow-[0_-4px_20px_rgba(28,27,27,0.06)] backdrop-blur md:hidden">
           <ShellNavLink mobile to="/catalog">
             Koleksi
           </ShellNavLink>
           <ShellNavLink mobile to="/recommendations">
             Rekomendasi
           </ShellNavLink>
+          <ShellNavLink mobile to="/profile">
+            Profile
+          </ShellNavLink>
         </nav>
       </header>
 
-      {children}
+      <div className="pb-20 md:pb-0">{children}</div>
     </div>
   );
 }

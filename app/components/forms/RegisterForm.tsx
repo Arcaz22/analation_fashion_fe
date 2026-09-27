@@ -24,7 +24,9 @@ export function RegisterForm() {
   return (
     <main className="w-full max-w-105 border border-[#E8E8E4] bg-white p-8 md:p-12">
       <header className="mb-12 text-center">
-        <h1 className="text-brand-logo text-primary">MATCH</h1>
+        <h1 className="display-font text-3xl font-semibold tracking-[0.16em] text-primary">
+          MATCH
+        </h1>
       </header>
 
       <section className="mb-10 text-center">
@@ -113,7 +115,7 @@ export function RegisterForm() {
         </div>
 
         {register.error ? (
-          <p className="text-sm text-[#ba1a1a]">
+          <p className="text-sm text-[#ba1a1a]" role="alert">
             {getErrorMessage(register.error)}
           </p>
         ) : null}
@@ -126,7 +128,7 @@ export function RegisterForm() {
           {!register.isPending ? (
             <FiUserPlus className="mr-2 size-4" aria-hidden="true" />
           ) : null}
-          {register.isPending ? "Memproses..." : "Register"}
+          {register.isPending ? "Memproses..." : "Buat akun"}
         </button>
 
         <div className="mt-4 text-center">
@@ -134,7 +136,7 @@ export function RegisterForm() {
             className="text-label-sm text-[#5e5e5e] underline-offset-4 transition-colors hover:text-[#1A1A1A] hover:underline"
             to="/login"
           >
-            Masuk ke Akun
+            Sudah punya akun? Masuk
           </Link>
         </div>
       </form>

@@ -173,27 +173,29 @@ export function NewItemForm() {
   }
 
   async function analyzeDrafts(items: ItemDraft[]) {
-    for (const draft of items) {
-      updateDraft(draft.id, { status: "analyzing", error: undefined });
+    await Promise.all(
+      items.map(async (draft) => {
+        updateDraft(draft.id, { status: "analyzing", error: undefined });
 
-      try {
-        const response = await wardrobeApi.analyzeItem(draft.image);
-        const result = response.data;
+        try {
+          const response = await wardrobeApi.analyzeItem(draft.image);
+          const result = response.data;
 
-        updateDraft(draft.id, {
-          category: result.category,
-          dominantColor: result.dominant_color,
-          description: result.description,
-          status: "ready",
-          error: undefined,
-        });
-      } catch (error) {
-        updateDraft(draft.id, {
-          status: "error",
-          error: getApiErrorMessage(error, "Lengkapi detail secara manual."),
-        });
-      }
-    }
+          updateDraft(draft.id, {
+            category: result.category,
+            dominantColor: result.dominant_color,
+            description: result.description,
+            status: "ready",
+            error: undefined,
+          });
+        } catch (error) {
+          updateDraft(draft.id, {
+            status: "error",
+            error: getApiErrorMessage(error, "Lengkapi detail secara manual."),
+          });
+        }
+      })
+    );
   }
 
   function removeDraft(id: string) {
@@ -274,8 +276,10 @@ export function NewItemForm() {
     );
     const savedCount = saveResults.filter(Boolean).length;
 
-    await queryClient.invalidateQueries({ queryKey: wardrobeKeys.all });
-    await queryClient.invalidateQueries({ queryKey: ["profile", "stats"] });
+    await Promise.all([
+      queryClient.invalidateQueries({ queryKey: wardrobeKeys.all }),
+      queryClient.invalidateQueries({ queryKey: ["profile", "stats"] }),
+    ]);
 
     if (savedCount === unsavedDrafts.length) {
       showToast({

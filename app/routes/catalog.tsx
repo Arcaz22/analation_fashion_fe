@@ -76,7 +76,7 @@ export default function CatalogPage() {
         ) : itemsQuery.isError ? (
           <div className="border border-[#f0c8c8] bg-[#fff7f7] p-5">
             <p className="text-sm font-semibold text-[#ba1a1a]">
-              Koleksi tidak bisa dimuat.
+                Koleksi belum bisa dimuat.
             </p>
             <p className="mt-1 text-sm text-[#747878]">
               Periksa koneksi API lalu coba lagi.
@@ -88,7 +88,9 @@ export default function CatalogPage() {
           <div className="grid min-h-72 place-items-center border border-[#E8E8E4] bg-white p-8 text-center">
             <div>
               <p className="text-sm font-semibold text-[#1c1b1b]">
-                Belum ada item di kategori ini.
+                {category === "all"
+                  ? "Lemari Anda masih kosong."
+                  : "Belum ada item di kategori ini."}
               </p>
               <Link
                 className="mt-4 inline-flex h-11 items-center justify-center bg-[#1c1b1b] px-5 text-[11px] font-semibold uppercase tracking-[0.12em] text-white transition-opacity hover:opacity-90"

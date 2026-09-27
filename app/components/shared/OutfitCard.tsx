@@ -26,6 +26,8 @@ export function OutfitCard({ outfit }: { outfit: OutfitSet }) {
                 <img
                   alt={item.description ?? slot.label}
                   className="h-full w-full object-cover"
+                  decoding="async"
+                  loading="lazy"
                   src={item.thumbnail_url || item.image_url || fallbackImage}
                 />
               ) : (

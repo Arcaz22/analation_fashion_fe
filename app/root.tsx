@@ -32,7 +32,7 @@ export const links: Route.LinksFunction = () => [
   },
   {
     rel: "stylesheet",
-    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
+    href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Manrope:wght@400;500;600;700&display=swap",
   },
 ];
 
@@ -71,9 +71,11 @@ function SilentRefresh() {
         const newToken = refreshResponse.data.access_token;
 
         setAccessToken(newToken);
-        const meResponse = await authApi.me();
+        const [meResponse, profileResponse] = await Promise.all([
+          authApi.me(),
+          profileApi.me(),
+        ]);
         const user = meResponse.data;
-        const profileResponse = await profileApi.me();
         const profile = profileResponse.data;
         const profileCompleted =
           profile.profile_completed ||
